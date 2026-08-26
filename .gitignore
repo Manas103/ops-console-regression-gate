@@ -1,0 +1,7 @@
+node_modules/
+# regenerate with: npm run build (in backend/ and frontend/)
+dist/
+target/
+*.log
+.idea/
+*.iml

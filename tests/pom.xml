@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.manas.opsconsole</groupId>
+  <artifactId>ops-console-regression-gate-tests</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit.version>5.11.3</junit.version>
+    <selenium.version>4.27.0</selenium.version>
+    <restassured.version>5.5.0</restassured.version>
+    <app.baseUrl>http://localhost:4000</app.baseUrl>
+    <chrome.binary>C:\Program Files\Google\Chrome\Application\chrome.exe</chrome.binary>
+    <rerun.count>0</rerun.count>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${restassured.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>tests</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.2</version>
+        <configuration>
+          <systemPropertyVariables>
+            <app.baseUrl>${app.baseUrl}</app.baseUrl>
+            <webdriver.chrome.binary>${chrome.binary}</webdriver.chrome.binary>
+          </systemPropertyVariables>
+          <trimStackTrace>false</trimStackTrace>
+          <!-- Surefire's own rerun-and-quarantine mechanism: a failing test is retried up
+               to this many times within the same run; if any retry passes, Surefire reports
+               it as a "flake" (separate from "failures") and the run as a whole still
+               succeeds. 0 by default (raw, no quarantine); the regression-flake measurement
+               script overrides this with -Drerun.count=3 to measure the quarantined rate. -->
+          <rerunFailingTestsCount>${rerun.count}</rerunFailingTestsCount>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
