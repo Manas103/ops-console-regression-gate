@@ -5,3 +5,5 @@ target/
 *.log
 .idea/
 *.iml
+# regenerate with: cd tests/browser && npm ci && npx playwright install chromium && python fetch_driver.py
+tests/browser/driver/

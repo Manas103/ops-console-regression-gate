@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { acknowledge, getIncident, listIncidents, resolve, toPublic } from './store.js';
 import { isDefectActive } from './defects.js';
+import { getCart, getOrder, pay } from './checkout.js';
 
 const VALID_STATUS = new Set(['OPEN', 'ACKNOWLEDGED', 'RESOLVED']);
 
@@ -115,6 +116,33 @@ router.all('/incidents/:id', (req, res) => {
     return res.status(200).json({ ok: true });
   }
   res.status(405).json(errorBody(`method ${req.method} not allowed on this resource`));
+});
+
+// --- Payment checkout flow. Deterministic, no defect toggles: see checkout.ts. ---
+
+router.get('/checkout/cart', (_req, res) => {
+  res.json(getCart());
+});
+
+router.post('/checkout/pay', (req, res) => {
+  const body = req.body ?? {};
+  const result = pay({ cardNumber: String(body.cardNumber ?? ''), amountCents: Number(body.amountCents) });
+  if (!result.ok) {
+    return res.status(result.code).json({ error: result.error });
+  }
+  res.status(201).json(result.order);
+});
+
+router.get('/checkout/orders/:id', (req, res) => {
+  const idParam = req.params.id;
+  if (!/^\d+$/.test(idParam)) {
+    return res.status(400).json({ error: `invalid order id '${idParam}'` });
+  }
+  const order = getOrder(Number(idParam));
+  if (!order) {
+    return res.status(404).json({ error: `order ${idParam} not found` });
+  }
+  res.json(order);
 });
 
 function errorBody(message: string): Record<string, unknown> {

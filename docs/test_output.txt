@@ -1,60 +1,26 @@
-[INFO] Scanning for projects...
-[INFO] 
-[INFO] -------< com.manas.opsconsole:ops-console-regression-gate-tests >-------
-[INFO] Building ops-console-regression-gate-tests 1.0.0
-[INFO]   from pom.xml
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
-[INFO] --- resources:3.3.1:resources (default-resources) @ ops-console-regression-gate-tests ---
-[INFO] skip non existing resourceDirectory C:\Users\Manas\Downloads\Total Job Application process flow\projects\ops-console-regression-gate\tests\src\main\resources
-[INFO] 
-[INFO] --- compiler:3.13.0:compile (default-compile) @ ops-console-regression-gate-tests ---
-[INFO] No sources to compile
-[INFO] 
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ ops-console-regression-gate-tests ---
-[INFO] skip non existing resourceDirectory C:\Users\Manas\Downloads\Total Job Application process flow\projects\ops-console-regression-gate\tests\src\test\resources
-[INFO] 
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ ops-console-regression-gate-tests ---
-[INFO] Nothing to compile - all classes are up to date.
-[INFO] 
-[INFO] --- surefire:3.5.2:test (default-test) @ ops-console-regression-gate-tests ---
-[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[INFO] 
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-[INFO] Running com.manas.opsconsole.api.IncidentApiContractTest
-[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.100 s -- in com.manas.opsconsole.api.IncidentApiContractTest
-[INFO] Running com.manas.opsconsole.e2e.IncidentJourneysTest
-Aug 25, 2026 10:29:13 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 151
-Aug 25, 2026 10:29:13 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 151.0.7922.174. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-Aug 25, 2026 10:29:15 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 151
-Aug 25, 2026 10:29:15 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 151.0.7922.174. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-Aug 25, 2026 10:29:16 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 151
-Aug 25, 2026 10:29:16 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 151.0.7922.174. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-Aug 25, 2026 10:29:18 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 151
-Aug 25, 2026 10:29:18 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 151.0.7922.174. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-Aug 25, 2026 10:29:20 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 151
-Aug 25, 2026 10:29:20 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 151.0.7922.174. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.554 s -- in com.manas.opsconsole.e2e.IncidentJourneysTest
-[INFO] 
-[INFO] Results:
-[INFO] 
-[INFO] Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  16.522 s
-[INFO] Finished at: 2026-08-25T22:29:21-04:00
-[INFO] ------------------------------------------------------------------------
+mvn -o test (tests/), 2026-11-09T07:06:47Z
+
+=== target/surefire-reports/com.manas.opsconsole.api.CheckoutApiContractSpec.txt ===
+-------------------------------------------------------------------------------
+Test set: com.manas.opsconsole.api.CheckoutApiContractSpec
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.262 s -- in com.manas.opsconsole.api.CheckoutApiContractSpec
+
+=== target/surefire-reports/com.manas.opsconsole.api.IncidentApiContractTest.txt ===
+-------------------------------------------------------------------------------
+Test set: com.manas.opsconsole.api.IncidentApiContractTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.682 s -- in com.manas.opsconsole.api.IncidentApiContractTest
+
+=== target/surefire-reports/com.manas.opsconsole.e2e.CheckoutJourneyTest.txt ===
+-------------------------------------------------------------------------------
+Test set: com.manas.opsconsole.e2e.CheckoutJourneyTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.568 s -- in com.manas.opsconsole.e2e.CheckoutJourneyTest
+
+=== target/surefire-reports/com.manas.opsconsole.e2e.IncidentJourneysTest.txt ===
+-------------------------------------------------------------------------------
+Test set: com.manas.opsconsole.e2e.IncidentJourneysTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.600 s -- in com.manas.opsconsole.e2e.IncidentJourneysTest
+

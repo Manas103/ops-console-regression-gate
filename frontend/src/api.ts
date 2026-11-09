@@ -1,4 +1,5 @@
 import type { Incident } from './types';
+import type { Cart, Order } from './checkoutTypes';
 
 async function handle<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -31,4 +32,20 @@ export function resolveIncident(id: number): Promise<Incident> {
   return fetch(`/api/incidents/${id}/resolve`, { method: 'POST' }).then((r) =>
     handle<Incident>(r)
   );
+}
+
+export function fetchCart(): Promise<Cart> {
+  return fetch('/api/checkout/cart').then((r) => handle<Cart>(r));
+}
+
+export function pay(cardNumber: string, amountCents: number): Promise<Order> {
+  return fetch('/api/checkout/pay', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cardNumber, amountCents }),
+  }).then((r) => handle<Order>(r));
+}
+
+export function fetchOrder(id: number): Promise<Order> {
+  return fetch(`/api/checkout/orders/${id}`).then((r) => handle<Order>(r));
 }

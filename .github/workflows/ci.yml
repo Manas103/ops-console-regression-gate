@@ -33,13 +33,20 @@ jobs:
           npm run build
         working-directory: frontend
 
+      - name: Install Playwright's bundled Chromium (never the runner's browser)
+        run: |
+          npm ci
+          npx playwright install chromium
+          python fetch_driver.py
+        working-directory: tests/browser
+
       - name: Start backend
         run: |
           Start-Process node -ArgumentList "dist/server.js" -WorkingDirectory "backend" -RedirectStandardOutput "backend.log"
           Start-Sleep -Seconds 2
         shell: pwsh
 
-      - name: Run API contract tests and Selenium journeys
+      - name: Run API contract tests, Selenium journeys and Spock specs
         run: mvn -q test
         working-directory: tests
 

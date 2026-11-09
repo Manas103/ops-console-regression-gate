@@ -15,8 +15,17 @@
     <junit.version>5.11.3</junit.version>
     <selenium.version>4.27.0</selenium.version>
     <restassured.version>5.5.0</restassured.version>
+    <groovy.version>4.0.24</groovy.version>
+    <spock.version>2.3-groovy-4.0</spock.version>
     <app.baseUrl>http://localhost:4000</app.baseUrl>
-    <chrome.binary>C:\Program Files\Google\Chrome\Application\chrome.exe</chrome.binary>
+    <!-- Playwright's own bundled Chromium (Chrome for Testing build), never the user's
+         installed browser; see browser/package.json and ChromeDriverFactory's javadoc.
+         The matching driver binary (same exact version, fetched by browser/fetch_driver.py
+         straight from the Chrome for Testing dashboard) is installed inside this project
+         rather than resolved by Selenium Manager, whose driver cache otherwise pins
+         whatever version it first resolved regardless of the binary actually in use. -->
+    <chrome.binary>${user.home}\AppData\Local\ms-playwright\chromium-1254\chrome-win64\chrome.exe</chrome.binary>
+    <chrome.driver>${project.basedir}\browser\driver\chromedriver-win64\chromedriver.exe</chrome.driver>
     <rerun.count>0</rerun.count>
   </properties>
 
@@ -55,19 +64,64 @@
       <version>${selenium.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- Groovy and Spock: the new specification layer for the payment checkout
+         flow, requested by name in the posting this slot answers. -->
+    <dependency>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <version>${groovy.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <version>${spock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- REST Assured needs a JSON mapper on the classpath to serialize a Groovy
+         Map request body (used by the Spock spec's data-driven cases). -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.18.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>tests</finalName>
     <plugins>
+      <!-- Compiles src/test/groovy (the Spock specification layer) alongside the
+           regular Java test sources; addTestSources/compileTests run in the
+           generate-test-sources and test-compile phases respectively. -->
+      <plugin>
+        <groupId>org.codehaus.gmavenplus</groupId>
+        <artifactId>gmavenplus-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>addTestSources</goal>
+              <goal>compileTests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.5.2</version>
         <configuration>
+          <!-- Surefire's own defaults (**/*Test.java etc.) do not match Spock's
+               "*Spec" naming convention; included explicitly here alongside them. -->
+          <includes>
+            <include>**/*Test.java</include>
+            <include>**/*Spec.java</include>
+          </includes>
           <systemPropertyVariables>
             <app.baseUrl>${app.baseUrl}</app.baseUrl>
             <webdriver.chrome.binary>${chrome.binary}</webdriver.chrome.binary>
+            <webdriver.chrome.driver>${chrome.driver}</webdriver.chrome.driver>
           </systemPropertyVariables>
           <trimStackTrace>false</trimStackTrace>
           <!-- Surefire's own rerun-and-quarantine mechanism: a failing test is retried up
